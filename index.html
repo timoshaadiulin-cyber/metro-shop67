@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>METRO SHOP — Сопровождение</title>
+    <title>OGER METRO SHOP</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg-dark: #0f101a;
-            --card-bg: #1a1c2e;
+            --bg-dark: #0b0c14;
+            --card-bg: #151726;
             --neon-blue: #00d2ff;
             --neon-purple: #9d4edd;
-            --neon-pink: #ff007f;
+            --neon-pink: #ff0055;
+            --neon-gold: #ffb703;
+            --neon-green: #00f5d4;
             --text-main: #ffffff;
-            --text-muted: #a0a5ba;
+            --text-muted: #9499b7;
         }
 
         * {
@@ -27,20 +29,20 @@
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-            padding: 16px;
-            padding-bottom: 90px;
+            padding: 14px;
+            padding-bottom: 80px;
         }
 
         .header {
             text-align: center;
-            padding: 16px 0 24px;
+            padding: 10px 0 16px;
         }
 
         .header h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 900;
             letter-spacing: 1px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            background: linear-gradient(90deg, var(--neon-blue), #ffffff, var(--neon-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-transform: uppercase;
@@ -48,133 +50,187 @@
 
         .header p {
             color: var(--text-muted);
-            font-size: 14px;
-            margin-top: 6px;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* Баннер Акции */
+        .promo-banner {
+            background: linear-gradient(135deg, rgba(255, 0, 85, 0.2), rgba(157, 78, 221, 0.25));
+            border: 2px solid var(--neon-pink);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+        }
+
+        .promo-badge {
+            display: inline-block;
+            background: var(--neon-pink);
+            color: #fff;
+            font-weight: 900;
+            font-size: 13px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .promo-text {
+            font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.35;
+        }
+
+        /* Переключатель карт (7 и 8 карта) */
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            background: rgba(0, 210, 255, 0.15);
+            border-color: var(--neon-blue);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.25);
         }
 
         .section-title {
             font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 900;
+            margin: 18px 0 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #fff;
         }
 
         .cards-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
         .card {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 18px;
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
+            padding: 16px;
+            border: 1px solid rgba(0, 210, 255, 0.22);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
         }
 
-        .card.mega {
-            border: 1px solid rgba(255, 0, 127, 0.45);
-            box-shadow: 0 8px 28px rgba(157, 78, 221, 0.25);
+        .card.gold {
+            border-color: rgba(255, 183, 3, 0.5);
+            box-shadow: 0 6px 24px rgba(255, 183, 3, 0.15);
         }
 
-        .badge {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: rgba(0, 210, 255, 0.15);
-            color: var(--neon-blue);
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .card.mega .badge {
-            background: rgba(255, 0, 127, 0.15);
-            color: #ff4da6;
         }
 
         .card-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 900;
-            margin-bottom: 12px;
-            text-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
+        }
+
+        .map-tag {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 9px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--neon-blue);
         }
 
         .features {
             list-style: none;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .features li {
-            font-size: 15px;
-            margin-bottom: 8px;
+            font-size: 14px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
         }
 
         .features li strong {
             color: var(--neon-blue);
         }
 
-        .gear-box {
-            background: rgba(255, 0, 127, 0.1);
-            border: 1px solid rgba(255, 0, 127, 0.25);
-            border-radius: 10px;
-            padding: 10px;
-            margin: 12px 0;
-            font-size: 13px;
-            color: #ffd6e7;
+        .card.gold .features li strong {
+            color: var(--neon-gold);
         }
 
-        .gear-box span {
-            display: block;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 4px;
+        .gear-strip {
+            background: rgba(255, 0, 85, 0.1);
+            border: 1px solid rgba(255, 0, 85, 0.25);
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 12px;
+            color: #ffd6e5;
+            margin-bottom: 12px;
         }
 
         .card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 16px;
-            padding-top: 14px;
+            padding-top: 12px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .price {
-            font-size: 24px;
+            font-size: 23px;
             font-weight: 900;
             color: var(--neon-blue);
+        }
+
+        .card.gold .price {
+            color: var(--neon-gold);
         }
 
         .btn-buy {
             background: linear-gradient(90deg, #0072ff, #00c6ff);
             border: none;
-            color: white;
-            font-weight: 700;
-            font-size: 15px;
+            color: #fff;
+            font-weight: 800;
+            font-size: 14px;
             padding: 10px 22px;
-            border-radius: 12px;
+            border-radius: 11px;
             cursor: pointer;
         }
 
-        .card.mega .btn-buy {
-            background: linear-gradient(90deg, #9d4edd, #ff007f);
+        .card.gold .btn-buy {
+            background: linear-gradient(90deg, #ff8800, #ffb703);
+            color: #000;
         }
 
-        /* Модальное окно оформления */
+        /* Окно Кассы */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
             display: none;
             justify-content: center;
             align-items: flex-end;
@@ -186,22 +242,28 @@
         }
 
         .modal {
-            background: var(--card-bg);
+            background: #141625;
             width: 100%;
-            border-radius: 20px 20px 0 0;
-            padding: 22px 18px;
+            max-height: 92vh;
+            overflow-y: auto;
+            border-radius: 22px 22px 0 0;
+            padding: 20px 16px 26px;
             border-top: 2px solid var(--neon-blue);
-            animation: slideUp 0.25s ease-out;
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
+        .kassa-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .modal h3 {
-            font-size: 19px;
-            margin-bottom: 16px;
+        .kassa-badge {
+            font-size: 12px;
+            color: var(--neon-green);
+            font-weight: 700;
         }
 
         .form-group {
@@ -210,7 +272,7 @@
 
         .form-group label {
             display: block;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             margin-bottom: 6px;
         }
@@ -220,26 +282,50 @@
             padding: 12px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            background: #111320;
-            color: white;
+            background: #0b0c14;
+            color: #fff;
             font-size: 15px;
+        }
+
+        /* Выбор количества (под акцию 2+1) */
+        .qty-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .qty-btn {
+            background: #0b0c14;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 10px;
+            color: #fff;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .qty-btn.selected {
+            border-color: var(--neon-pink);
+            background: rgba(255, 0, 85, 0.15);
         }
 
         .pay-methods {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 6px;
+            gap: 8px;
         }
 
         .pay-option {
-            background: #111320;
+            background: #0b0c14;
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 10px;
-            padding: 12px;
+            padding: 11px;
             text-align: center;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 13px;
             cursor: pointer;
         }
 
@@ -249,27 +335,71 @@
             color: var(--neon-blue);
         }
 
+        /* Блок терминала оплаты */
+        .terminal-box {
+            display: none;
+            background: #0b0c14;
+            border: 1px solid rgba(0, 245, 212, 0.35);
+            border-radius: 14px;
+            padding: 14px;
+            margin-top: 12px;
+        }
+
+        .terminal-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #151726;
+            padding: 10px 12px;
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+
+        .copy-btn {
+            background: var(--neon-blue);
+            color: #000;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
         .btn-submit {
             width: 100%;
-            margin-top: 16px;
+            margin-top: 14px;
             padding: 14px;
             border: none;
             border-radius: 12px;
             background: linear-gradient(90deg, #0072ff, #00c6ff);
-            color: white;
-            font-size: 16px;
+            color: #fff;
+            font-size: 15px;
             font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            margin-top: 10px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #00b09b, #96c93d);
+            color: #000;
+            font-size: 15px;
+            font-weight: 900;
             cursor: pointer;
         }
 
         .btn-close {
             width: 100%;
             margin-top: 8px;
-            padding: 10px;
+            padding: 9px;
             background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
         }
     </style>
@@ -277,73 +407,206 @@
 <body>
 
     <div class="header">
-        <h1>🚀 METRO SHOP</h1>
-        <p>Сопровождение и буст в Metro Royale</p>
+        <h1>🌊 OGER METRO SHOP 🚀</h1>
+        <p>Каталог сопровождений Metro Royale</p>
     </div>
 
-    <div class="section-title">🛡️ Сопровождение — 7 Карта</div>
+    <!-- Баннер Акции -->
+    <div class="promo-banner">
+        <div class="promo-badge">АКЦИЯ!</div>
+        <div class="promo-text">КУПИ 2 СОПРОВОЖДЕНИЯ —<br>ПОЛУЧИ 3 В ПОДАРОК 🎁</div>
+    </div>
 
-    <div class="cards-grid">
-        <!-- Карточка 1: VIP 7 КАРТА -->
-        <div class="card">
-            <span class="badge">Популярное</span>
-            <div class="card-title">🔥 VIP 7 КАРТА</div>
-            <ul class="features">
-                <li>🔹 <strong>5КК ГАРАНТ</strong> + вещи с типов</li>
-                <li>🔹 Выдача <strong>ФУЛЛ</strong> в начале катки</li>
-                <li>🔹 Весёлое времяпрепровождение 😁</li>
-            </ul>
-            <div class="gear-box">
-                <span>🎒 Что входит в ФУЛЛ выдачу:</span>
-                Шлем 6 ур., Броня 6 ур., МК14 Выс., фулл обвесы и пластины, 2 рюкзака 6 ур.
-            </div>
-            <div class="card-footer">
-                <div class="price">85 ₽</div>
-                <button class="btn-buy" onclick="openCheckout('VIP 7 КАРТА (5КК Гарант)', 85)">Купить</button>
-            </div>
-        </div>
+    <!-- Быстрое переключение карт -->
+    <div class="tabs">
+        <div class="tab-btn active" onclick="filterMap('all', this)">Все карты</div>
+        <div class="tab-btn" onclick="filterMap('map8', this)">🔥 8 Карта</div>
+    </div>
 
-        <!-- Карточка 2: MEGA VIP 7 КАРТА -->
-        <div class="card mega">
-            <span class="badge">Максимальный лут</span>
-            <div class="card-title">💥 MEGA VIP 7 КАРТА</div>
-            <ul class="features">
-                <li>🔹 <strong>10КК ГАРАНТ</strong> + вещи с типов</li>
-                <li>🔹 Выдача <strong>ФУЛЛ</strong> в начале катки</li>
-                <li>🔹 Весёлое времяпрепровождение 🟡</li>
-                <li>🎁 <strong>+ СЕКРЕТНЫЙ ПОДАРОК</strong></li>
-            </ul>
-            <div class="gear-box">
-                <span>🎒 Что входит в ФУЛЛ выдачу:</span>
-                Шлем 6 ур., Броня 6 ур., МК14 Выс., фулл обвесы и пластины, 2 рюкзака 6 ур.
+    <!-- РАЗДЕЛ: 7 КАРТА -->
+    <div id="section7">
+        <div class="section-title">НА 7 КАРТУ</div>
+        <div class="cards-grid">
+
+            <!-- VIP 7 КАРТА -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🔥 VIP 7 КАРТА</div>
+                    <span class="map-tag">7 КАРТА</span>
+                </div>
+                <ul class="features">
+                    <li>➖ <strong>5КК ГАРАНТ</strong> + ВЕЩИ С ТИПОВ</li>
+                    <li>➖ Выдача <strong>ФУЛЛ</strong></li>
+                    <li>➖ Весёлое время провождения 😁</li>
+                </ul>
+                <div class="gear-strip">🎒 ФУЛЛ: Броня и шлем 6 ур., МК14 Выс., обвесы, пластины, 2 рюкзака</div>
+                <div class="card-footer">
+                    <div class="price">85 ₽</div>
+                    <button class="btn-buy" onclick="openCheckout('VIP (7 Карта)', 85)">Купить</button>
+                </div>
             </div>
-            <div class="card-footer">
-                <div class="price">150 ₽</div>
-                <button class="btn-buy" onclick="openCheckout('MEGA VIP 7 КАРТА (10КК + Подарок)', 150)">Купить</button>
+
+            <!-- MEGA VIP 7 КАРТА -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">💥 MEGA VIP 7 КАРТА</div>
+                    <span class="map-tag">7 КАРТА</span>
+                </div>
+                <ul class="features">
+                    <li>➖ <strong>10КК ГАРАНТ</strong> + ВЕЩИ С ТИПОВ</li>
+                    <li>➖ Выдача <strong>ФУЛЛ</strong></li>
+                    <li>➖ Веселое время провождения 🟡</li>
+                    <li>➖ <strong>ПОДАРОК 🎁</strong></li>
+                </ul>
+                <div class="gear-strip">🎒 ФУЛЛ: Броня и шлем 6 ур., МК14 Выс., обвесы, пластины, 2 рюкзака</div>
+                <div class="card-footer">
+                    <div class="price">150 ₽</div>
+                    <button class="btn-buy" onclick="openCheckout('MEGA VIP (7 Карта)', 150)">Купить</button>
+                </div>
             </div>
+
+            <!-- ULTRA 7 КАРТА -->
+            <div class="card gold">
+                <div class="card-header">
+                    <div class="card-title">👑 ULTRA 7 КАРТА</div>
+                    <span class="map-tag">7 КАРТА</span>
+                </div>
+                <ul class="features">
+                    <li>➖ <strong>25КК ГАРАНТ</strong> + ВЕЩИ С ТИПОВ</li>
+                    <li>➖ Выдача <strong>ФУЛЛ</strong></li>
+                    <li>➖ Веселое время провождения 😁</li>
+                    <li>➖ <strong>ПОДАРОК 🎁</strong></li>
+                </ul>
+                <div class="gear-strip">🎒 ФУЛЛ: Броня и шлем 6 ур., МК14 Выс., обвесы, пластины, 2 рюкзака</div>
+                <div class="card-footer">
+                    <div class="price">255 ₽</div>
+                    <button class="btn-buy" onclick="openCheckout('ULTRA (7 Карта)', 255)">Купить</button>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- Модальное окно оплаты -->
+    <!-- РАЗДЕЛ: 8 КАРТА -->
+    <div id="section8">
+        <div class="section-title">НА 8 КАРТУ</div>
+        <div class="cards-grid">
+
+            <!-- EPIC 8 КАРТА -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🧬 EPIC 8 КАРТА</div>
+                    <span class="map-tag">8 КАРТА</span>
+                </div>
+                <ul class="features">
+                    <li>➖ <strong>5КК ГАРАНТ + 4 БИЛЕТА</strong></li>
+                    <li>➕ <strong>ВЕЩИ С ТИПОВ</strong></li>
+                    <li>➖ Выдача <strong>ФУЛЛ</strong></li>
+                    <li>➖ Веселое время провождения 🟡</li>
+                </ul>
+                <div class="gear-strip">🎒 ФУЛЛ: Броня и шлем 6 ур., МК14 Выс., обвесы, пластины, 2 рюкзака</div>
+                <div class="card-footer">
+                    <div class="price">125 ₽</div>
+                    <button class="btn-buy" onclick="openCheckout('EPIC (8 Карта)', 125)">Купить</button>
+                </div>
+            </div>
+
+            <!-- SAFE 8 КАРТА -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🛡️ SAFE 8 КАРТА</div>
+                    <span class="map-tag">8 КАРТА</span>
+                </div>
+                <ul class="features">
+                    <li>➖ <strong>10КК ГАРАНТ + 8 БИЛЕТОВ</strong></li>
+                    <li>➕ <strong>ВЕЩИ С ТИПОВ</strong></li>
+                    <li>➖ Выдача <strong>ФУЛЛ</strong></li>
+                    <li>➖ <strong>ПОДАРОК 🎁</strong></li>
+                    <li>➖ Веселое время провождения 😁</li>
+                </ul>
+                <div class="gear-strip">🎒 ФУЛЛ: Броня и шлем 6 ур., МК14 Выс., обвесы, пластины, 2 рюкзака</div>
+                <div class="card-footer">
+                    <div class="price">215 ₽</div>
+                    <button class="btn-buy" onclick="openCheckout('SAFE (8 Карта)', 215)">Купить</button>
+                </div>
+            </div>
+
+            <!-- GOLD 8 КАРТА -->
+            <div class="card gold">
+                <div class="card-header">
+                    <div class="card-title">⭐ GOLD 8 КАРТА</div>
+                    <span class="map-tag">8 КАРТА</span>
+                </div>
+                <ul class="features">
+                    <li>➖ <strong>25КК ГАРАНТ + 16 БИЛЕТОВ</strong></li>
+                    <li>➕ <strong>ВЕЩИ С ТИПОВ</strong></li>
+                    <li>➖ Выдача <strong>ФУЛЛ</strong></li>
+                    <li>➖ <strong>ПОДАРОК 🎁</strong></li>
+                    <li>➖ Веселое время провождения</li>
+                </ul>
+                <div class="gear-strip">🎒 ФУЛЛ: Броня и шлем 6 ур., МК14 Выс., обвесы, пластины, 2 рюкзака</div>
+                <div class="card-footer">
+                    <div class="price">325 ₽</div>
+                    <button class="btn-buy" onclick="openCheckout('GOLD (8 Карта)', 325)">Купить</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Модальное окно: Электронная касса -->
     <div class="modal-overlay" id="checkoutModal">
         <div class="modal">
-            <h3 id="modalTitle">Оформление заказа</h3>
-            
+            <div class="kassa-header">
+                <strong id="modalTitle">Касса OGER PAY</strong>
+                <span class="kassa-badge">🔒 Защищено</span>
+            </div>
+
+            <div class="form-group">
+                <label>Количество сопровождений:</label>
+                <div class="qty-box">
+                    <div class="qty-btn selected" id="qty1" onclick="setQty(1)">1 шт. (Стандарт)</div>
+                    <div class="qty-btn" id="qty2" onclick="setQty(2)">🔥 2 шт. (+3-е В ПОДАРОК)</div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label>Ваш игровой PUBG ID (или никнейм):</label>
-                <input type="text" id="pubgId" placeholder="Например: 5123456789" required>
+                <input type="text" id="pubgId" placeholder="Введите ваш ID в игре">
             </div>
 
             <div class="form-group">
                 <label>Способ оплаты:</label>
                 <div class="pay-methods">
-                    <div class="pay-option selected" id="paySbp" onclick="selectPay('СБП')">📱 СБП</div>
-                    <div class="pay-option" id="payCard" onclick="selectPay('Карта РФ')">💳 По карте</div>
+                    <div class="pay-option selected" id="paySbp" onclick="selectPay('СБП')">📱 СБП (Быстрый)</div>
+                    <div class="pay-option" id="payCard" onclick="selectPay('Карта')">💳 Карта МИР/РФ</div>
                 </div>
             </div>
 
-            <button class="btn-submit" id="payBtn" onclick="submitOrder()">Оплатить</button>
-            <button class="btn-close" onclick="closeCheckout()">Отмена</button>
+            <button class="btn-submit" id="proceedBtn" onclick="openTerminal()">Перейти к оплате</button>
+
+            <!-- Внутренний платежный шлюз (без ФИО) -->
+            <div class="terminal-box" id="terminalBox">
+                <div style="font-size: 13px; color: #a0a5ba; margin-bottom: 6px;">
+                    Переведите точную сумму через <strong>СБП (Банк ВТБ)</strong> по номеру платежного шлюза:
+                </div>
+                <div class="terminal-row">
+                    <div>
+                        <div style="font-size: 11px; color: #9499b7;">Шлюз СБП (ВТБ):</div>
+                        <div style="font-size: 16px; font-weight: 900; letter-spacing: 0.5px;">+7 (951) 934-71-44</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyGateway()">Копировать</button>
+                </div>
+                <div class="terminal-row">
+                    <div>
+                        <div style="font-size: 11px; color: #9499b7;">Сумма к оплате:</div>
+                        <div style="font-size: 17px; font-weight: 900; color: var(--neon-green);" id="termAmount">0 ₽</div>
+                    </div>
+                </div>
+                <button class="btn-confirm" onclick="confirmPayment()">✅ Я оплатил — Выдать заказ</button>
+            </div>
+
+            <button class="btn-close" onclick="closeCheckout()">Закрыть</button>
         </div>
     </div>
 
@@ -351,15 +614,29 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
+        // Если вы создадите ссылку для сбора ВТБ или ЮMoney, вставьте ее в кавычки ниже,
+        // и покупателя будет сразу перекидывать на банковскую форму без показа номера:
+        const SECRET_PAY_LINK = "";
+
         let currentProduct = '';
-        let currentPrice = 0;
+        let basePrice = 0;
+        let currentQty = 1;
         let selectedMethod = 'СБП';
+
+        function filterMap(type, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('section7').style.display = (type === 'map8') ? 'none' : 'block';
+        }
 
         function openCheckout(product, price) {
             currentProduct = product;
-            currentPrice = price;
+            basePrice = price;
+            currentQty = 1;
             document.getElementById('modalTitle').innerText = product;
-            document.getElementById('payBtn').innerText = `Перейти к оплате — ${price} ₽`;
+            document.getElementById('terminalBox').style.display = 'none';
+            document.getElementById('proceedBtn').style.display = 'block';
+            setQty(1);
             document.getElementById('checkoutModal').classList.add('active');
         }
 
@@ -367,27 +644,52 @@
             document.getElementById('checkoutModal').classList.remove('active');
         }
 
+        function setQty(q) {
+            currentQty = q;
+            document.getElementById('qty1').classList.toggle('selected', q === 1);
+            document.getElementById('qty2').classList.toggle('selected', q === 2);
+            const total = basePrice * q;
+            document.getElementById('proceedBtn').innerText = `Оплатить ${total} ₽`;
+            document.getElementById('termAmount').innerText = `${total} ₽`;
+        }
+
         function selectPay(method) {
             selectedMethod = method;
             document.getElementById('paySbp').classList.toggle('selected', method === 'СБП');
-            document.getElementById('payCard').classList.toggle('selected', method === 'Карта РФ');
+            document.getElementById('payCard').classList.toggle('selected', method === 'Карта');
         }
 
-        function submitOrder() {
+        function copyGateway() {
+            navigator.clipboard.writeText('79519347144');
+            alert('Номер шлюза скопирован!');
+        }
+
+        function openTerminal() {
             const pubgId = document.getElementById('pubgId').value.trim();
             if (!pubgId) {
-                alert('Пожалуйста, укажите ваш PUBG ID!');
+                alert('Пожалуйста, введите ваш игровой PUBG ID!');
                 return;
             }
+            if (SECRET_PAY_LINK !== "") {
+                window.open(SECRET_PAY_LINK, '_blank');
+            }
+            document.getElementById('proceedBtn').style.display = 'none';
+            document.getElementById('terminalBox').style.display = 'block';
+        }
+
+        function confirmPayment() {
+            const pubgId = document.getElementById('pubgId').value.trim();
+            const total = basePrice * currentQty;
+            const bonusText = (currentQty === 2) ? '2 шт. + 1 В ПОДАРОК (Акция 2+1)' : '1 шт.';
 
             const orderData = {
                 product: currentProduct,
-                price: currentPrice,
+                qty: bonusText,
+                total_price: total + ' ₽',
                 pubg_id: pubgId,
-                payment_method: selectedMethod
+                method: selectedMethod
             };
 
-            // Передача данных обратно в Telegram-бота
             tg.sendData(JSON.stringify(orderData));
         }
     </script>
